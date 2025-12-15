@@ -309,7 +309,7 @@ form legend {
 .modal-content {
     border-top: var(--bt-radius) !important;
     border-radius: var(--modal-radius) !important;
-    overflow: hidden !important;
+    /*overflow: hidden !important;*/
 }
 
 .modal-header {
