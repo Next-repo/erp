@@ -1,0 +1,81 @@
+{% extends 'auth.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+{% block titre %}Connexion{% endblock %}
+
+{% block body %}
+
+	{% include "security/composants/_reseaux.html.twig" %}
+
+	<div class="position-relative text-center my-4">
+		<p class="mb-0 fs-12 px-3 d-inline-block bg-body z-index-5 position-relative">Ou connectez-vous avec votre adresse e-mail</p>
+		<span class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
+	</div>
+
+	<form method="post" action="{{path('app_login')}}">
+
+		{% if error %}
+			<div class="alert alert-danger">
+				<i class="ti ti-exclamation-circle"></i>
+				<strong>{{ error.messageKey|trans(error.messageData, 'security') }}</strong>
+			</div>
+		{% endif %}
+
+		<div class="mb-3">
+			<label class="form-label" for="username">Adresse email
+				<span class="text-danger">*</span>
+			</label>
+			<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus placeholder="Ex: contact@next-evolution.it.com">
+		</div>
+
+		<div class="mb-3">
+			<label for="inputPassword" class="form-label">Mot de passe
+				<span class="text-danger">*</span>
+			</label>
+			<div class="input-group login-input-group">
+				<input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Entrez votre mot de passe">
+				<button class="btn btn-outline-primary" type="button" onclick="showPassword()">
+					<i id="toggleIcon" class="ti ti-eye"></i>
+				</button>
+			</div>
+		</div>
+
+		<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+		<div class="grid-deux py-2">
+			<div class="form-check mb-3">
+				<input class="form-check-input" name="_remember_me" id="_remember_me" type="checkbox">
+				<label class="form-check-label text-primary" for="_remember_me">
+					Rester connecter
+				</label>
+			</div>
+			<a href="{{path('app_forgot_password_request')}}" class="ms-auto">Mot de passe oublié ?</a>
+		</div>
+
+		<button class="btn btn-primary w-100" type="submit">
+			<span class="loadBtn d-block w-100">Se connecter</span>
+		</button>
+	</form>
+	
+	<div class="d-flex align-items-center justify-content-center mt-3">
+		<p class="fs-12 mb-0 fw-medium">Vous n'avez pas encore de compte ?</p>
+		<a class="text-primary fw-bolder ms-2" href="{{path('app_register')}}">Inscrivez-vous maintenant</a>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		function showPassword() {
+let inputID = document.getElementById("inputPassword");
+let icon = document.getElementById("toggleIcon");
+
+if (inputID.type === "password") {
+inputID.type = "text";
+icon.classList.replace("ti-eye", "ti-eye-off");
+} else {
+inputID.type = "password";
+icon.classList.replace("ti-eye-off", "ti-eye");
+}
+}
+	</script>
+{% endblock %}

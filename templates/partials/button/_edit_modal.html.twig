@@ -1,0 +1,6 @@
+{% if condition is defined ? condition : is_granted('ROLE_CAN_EDIT') %}
+	<button type="button" class="btn {{className ?? 'details'}} {{btn is defined ? btn : 'btn-outline-primary btn-sm'}} me-1" data-id="{{data.id}}" data-url="{{ path(path, {'id': data.id}) }}" data-bs-toggle="modal" data-bs-target="#{{target is defined ? target : 'ModaleDetails'}}">
+		<i class="ti ti-pencil"></i>
+		
+	</button>
+{% endif %}

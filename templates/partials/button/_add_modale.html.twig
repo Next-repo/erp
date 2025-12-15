@@ -1,0 +1,8 @@
+{% if condition is defined ? condition : is_granted('ROLE_CAN_ADD') %}
+
+	<button type="button" class="btn {{btn ?? 'btn-outline-primary btn-sm'}}" data-bs-toggle="modal" data-bs-target="#{{target is defined ? target : 'addModal'}}" data-bs-placement="top">
+		<i class="ti ti-{{icon is defined ? icon : 'plus'}} me-1 fs-5"></i>
+		{{text is defined ? text : 'Ajouter'}}
+	</button>
+
+{% endif %}

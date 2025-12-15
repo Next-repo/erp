@@ -1,0 +1,135 @@
+@media(max-width: 900px) {
+    .topbar {
+        width: 100% !important;
+    }
+
+    .body-wrapper {
+        min-height: auto!important;
+    }
+
+    .offcanvas {
+        width: 100% !important;
+    }
+
+    .dash-grid-six,
+    .dash-grid-quatre,
+    .dash-grid-cinq,
+    .dash-grid-trois,
+    .grid-deux,
+    .grid-six,
+    .grid-cinq,
+    .grid-quatre {
+        grid-gap: 10px;
+        border-radius: 15px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        padding: 0;
+    }
+
+    .img-logo img {
+        width: 70px;
+    }
+
+    .custom-pb {
+        padding-bottom: 30px !important;
+    }
+}
+
+@media(max-width: 800px) {
+    .fs-15 {
+        font-size: calc(1rem + 1.4vw) !important;
+    }
+
+    .grid-trois,
+    .dash-grid-six,
+    .dash-grid-quatre,
+    .dash-grid-cinq,
+    .dash-grid-trois,
+    .dash-grid-deux,
+    .grid-six,
+    .grid-cinq,
+    .grid-deux,
+    .grid-quatre {
+        grid-gap: 10px;
+        border-radius: 15px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        width: 100%;
+        padding: 0;
+    }
+
+    .sec-title__title {
+        font-size: 22px;
+        line-height: 24px;
+    }
+
+    .auth-block {
+        width: 90%;
+        left: 5%;
+        right: 5%;
+        top: 5%;
+    }
+
+    .custom-sm-padding {
+        padding: 25px !important;
+    }
+
+    .logo-img {
+        text-align: center;
+    }
+
+    .card-header,
+    .card-body,
+    .card-footer {
+        padding: 8px;
+    }
+
+    .body-wrapper {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+    .filter-btn {
+        text-align: center;
+        justify-content: center !important;
+    }
+
+    .filter-btn .btn {
+        display: inline-block !important;
+        margin-bottom: 5px;
+        padding: 6px 7px !important;
+    }
+
+    .sm-none {
+        display: none !important;
+    }
+
+    .none-desktop {
+        display: block !important;
+    }
+
+    .pwa {
+        z-index: 9000 !important;
+    }
+
+    .pwa.alert .btn-close {
+        left: 0 !important;
+        top: -5px;
+    }
+
+    .pwa .navbar-brand {
+        line-height: 1;
+        margin-left: 30px;
+    }
+
+    .pwa .navbar-brand img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .admin .pwa.alert .btn-close {
+        left: 0 !important;
+        top: 11px;
+    }
+}

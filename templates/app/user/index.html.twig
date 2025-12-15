@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des membres ({{ users.getTotalItemCount }}){% endblock %}
+{% block titre %}Gestion des membres ({{ users.getTotalItemCount }}){% endblock %}
+
+{% block action %}{% endblock %}
+
+{% block right %}
+	<div class="modal fade" id="addModal" {# data-bs-backdrop="static" #} tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-{{size is defined ? size : 'lg'}}" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title m-0" id="addModalLabel">
+						{% include "partials/app/_logo.html.twig" with {size: 90} %}
+						Nouveau membre
+					</h6>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					{% set user = user ?? null %}
+					<twig:Users user="{{user}}"/>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-header border-bottom">
+			{% include "partials/app/_filter_simple.html.twig" with {path: 'users', clear: clear} %}
+		</div>
+		<div class="card-body">
+			{% include "app/user/composants/_data.html.twig" with {data: users} %}
+		</div>
+		<div class="card-footer">
+			{% include "partials/app/_pagination.html.twig" with {data: users} %}
+		</div>
+	</div>
+
+	{% include "partials/app/_modale.html.twig" with {
+		idElement: 'editmodale',
+		text: "Détails membres",
+		size: 'lg'}
+	%}
+
+{% endblock %}
+
+{% block scripts %}
+	{% include 'partials/app/_modale_scripts.html.twig' with {
+		dataSelector: '.edit',
+		modaleID: '#editmodale'
+	} %}
+{% endblock %}

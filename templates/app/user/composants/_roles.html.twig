@@ -1,0 +1,5 @@
+{% for role in user.roles %}
+	{% if role != 'ROLE_USER' %}
+		<span class="{{badge(role|replace({'ROLE_': ''})|upper)}}">{{ role|replace({'ROLE_': ''})|upper }}</span>
+	{% endif %}
+{% endfor %}

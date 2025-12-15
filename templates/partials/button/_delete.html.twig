@@ -1,0 +1,8 @@
+{% if condition is defined ? condition : is_granted('ROLE_CAN_DELETE') %}
+	<form method="post" class="text-center d-inline p-0" action="{{ path(path, {'id': data.id}) }}" onsubmit="return confirm('Voulez-vous supprimer cette donnée ? Elle ne sera plus jamais recuperée');">
+		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ data.id) }}">
+		<button type="submit" class="btn {{btn is defined ? btn : 'btn-outline-danger btn-sm'}}" title="Supprimer">
+			<i class="ti ti-trash"></i> {{text is defined ? text : ''}}
+		</button>
+	</form>
+{% endif %}

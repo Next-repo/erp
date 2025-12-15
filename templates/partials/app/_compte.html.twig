@@ -1,0 +1,8 @@
+<span class="{{badge('success')}} compte-badge">
+	{% if is_granted('ROLE_USER') %}
+		Utilisateur
+	{% else %}
+		Membre
+	{% endif %}
+	{#{{user.roles|join(', ')}}#}
+</span>

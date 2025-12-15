@@ -1,0 +1,3 @@
+{% set photo = user.avatarUrl ? user.avatarUrl : asset('img/avatar.jpg') %}
+
+<img src="{{asset(photo)}}" alt="{{user}}" width="{{width is defined ? width : 100}}px" height="{{width is defined ? width : 100}}px" class="{{radius is defined ? radius : 'rounded-circle'}}">

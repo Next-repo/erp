@@ -1,0 +1,24 @@
+<div {{ attributes is defined ? attributes|raw:'' }}>
+  {{ form_start(form, { attr: {
+    'data-action': 'live#action:prevent',
+    'data-live-action-param': 'save',
+    class: 'app-form',
+    role: role
+  } }) }}
+
+  {{ form_widget(form._token) }}
+  {{ form_errors(form) }}
+
+    {% if form.name is defined %}
+      {{ form_row(form.name) }}
+    {% endif %}
+
+    {% if form.description is defined %}
+      {{ form_row(form.description) }}
+    {% endif %}
+    
+  <div class="pt-2">
+    <button class="btn btn-primary" type="submit"><span class="loadBtn">Enregistrer</span></button>
+  </div>
+  {{ form_end(form, { render_rest: false }) }}
+</div>

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Tableau de bord
+{% endblock %}
+{% block titre %}
+  Tableau de bord
+{% endblock %}
+
+{% block action %}
+{% include "partials/button/_annee.html.twig" %}
+{% endblock %}
+
+{% block body %}
+  <div class="dash-grid-trois">
+    {% if is_granted('ROLE_COLLABORATEUR') %}
+      <a href="{{ path('projets') }}">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-6 mb-3">
+              <span class="round-48 d-flex align-items-center justify-content-center rounded bg-success-subtle">
+              <iconify-icon icon="solar:folder-2-broken" class="fs-7 text-success"></iconify-icon>
+              </span>
+              <div>
+                <h6 class="mb-0 fs-4 fw-medium">Projets</h6>
+                <small>Tout les projets</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-end">
+              <h4 class="fs-7 w-90">{{ totalProjets|length }}</h4>
+            </div>
+          </div>
+        </div>
+      </a>
+    {% endif %}
+    {% if is_granted('ROLE_COLLABORATEUR') %}
+      <a href="{{ path('clients') }}">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-6 mb-3">
+              <span class="round-48 d-flex align-items-center justify-content-center rounded bg-warning-subtle">
+              <iconify-icon icon="solar:users-group-rounded-linear" class="fs-7 text-warning"></iconify-icon>
+              </span>
+              <div>
+                <h6 class="mb-0 fs-4 fw-medium">Clients</h6>
+                <small>Tout les clients</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-end">
+              <h4 class="fs-7 w-90">{{ totalClients|length }}</h4>
+            </div>
+          </div>
+        </div>
+      </a>
+    {% endif %}
+    {% if is_granted('ROLE_COLLABORATEUR') %}
+      <a href="{{ path('users') }}">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-6 mb-3">
+              <span class="round-48 d-flex align-items-center justify-content-center rounded bg-warning-subtle">
+              <iconify-icon icon="solar:user-id-outline" class="fs-7 text-warning"></iconify-icon>
+              </span>
+              <div>
+                <h6 class="mb-0 fs-4 fw-medium">Membres</h6>
+                <small>Tout les membres</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-end">
+              <h4 class="fs-7 w-90">{{ totalUsers|length }}</h4>
+            </div>
+          </div>
+        </div>
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="card">
+		<div class="card-header border-bottom">
+			<h5 class="card-title">Derniers projets</h5>
+		</div>
+		<div class="card-body">
+			{% include "app/projet/composants/_data.html.twig" with {data: projets} %}
+		</div>
+	</div>
+
+{% endblock %}

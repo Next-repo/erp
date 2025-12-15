@@ -1,17 +1,224 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="{{ app.request.locale }}" dir="ltr" data-bs-theme="{{ app.user.mode is null ? 'light' : app.user.mode }}"
+    data-color-theme="Blue_Theme" data-layout="vertical">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="turbo-visit-control" content="reload">
+    <meta name="turbo-root" content="/app">
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="{{asset(appLogo)}}" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="{{asset('themes/base/assets/css/styles.css')}}" />
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <title>
+        {% block title %}{{appName}}{% endblock %}
+    </title>
+
+    {% block stylesheets %}{% endblock %}
+
+    {% block javascripts %}
+    {% block importmap %}
+    {{ importmap('app') }}
+    {% endblock %}
+    {% endblock %}
+</head>
+
+<body class="link-sidebar admin" data-turbo="false">
+
+    {% set accessApp = true %}
+
+    {% if app.user.lockAccess %}
+        {% set accessApp = false %}
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set accessApp = true %}
+    {% endif %}
+
+    {% if accessApp %}
+    <!-- Preloader -->
+    <div class="preloader">
+        {% include "partials/app/_logo.html.twig" with {size: 100, class: 'lds-ripple img-fluid'} %}
+    </div>
+
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        {% include "partials/app/_sidebar.html.twig" %}
+        <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <!-- Header Start -->
+            {% include "partials/app/_header.html.twig" %}
+            <!-- Header End -->
+
+            <div class="body-wrapper">
+                <div class="container-fluid">
+
+                    {% set isAllowed = true %}
+					          {% set isNotifyed = false %}
+					          {% set annee = anneeEncours() %}
+
+                    {% if annee is empty %}
+                      {% set isAllowed = false %}
+                      {% set annee = null %}
+                    {% endif %}
+
+                    {% if annee is not empty and annee.endAt|date('Y-m-d') < 'now'|date('Y-m-d') %}
+                      {% set isNotifyed = true %} 
+                      {% set isAllowed = false %} 
+                      {% set annee = null %}
+                    {% endif %}
+
+                    {% if isAllowed %}
+
+                      <div class="card card-body mb-4">
+
+                          <div class="grid-deux">
+                              <div>
+                                  <h4 class="main-title mb-3">{% block titre %}{% endblock %}</h4>
+                                  {% block text %}{% endblock %}
+                              </div>
+                              <div class="text-end action-block">
+                                  {% block action %}
+                                      {% include "partials/button/_add_offcanvas.html.twig" with {
+                                          target: target is defined ? target : 'offcanvasEnd',
+                                          add: add is defined ? add : 'Ajouter',
+                                          icon: 'plus',
+                                          btnsize: "btn-lg"
+                                      } %}
+                                  {% endblock %}
+                                  {% block right %}{% endblock %}
+                              </div>
+                          </div>
+
+                      </div>
+
+                      {% block body %}{% endblock %}
+
+                    {% else %}
+                      {# Configuration d'une nouvelle année #}
+                      <div class="row">
+                          <div class="col-sm-5 mx-auto">
+                              <div class="card">
+                                  <div class="card-body">
+                                      <h2 class="h4 text-primary mb-3 p-0">
+                                          <i class="ti ti-calendar-plus me-1"></i>
+                                          {% set strings = [
+                                              'Configurations requise:',
+                                              'une année est requise',
+                                              'Configurer une année'
+                                          ] %}
+                                          <span data-controller="symfony--ux-typed"
+                                              data-symfony--ux-typed-loop-value="true"
+                                              data-symfony--ux-typed-show-cursor-value="true"
+                                              data-symfony--ux-typed-cursor-char-value="✨"
+                                              data-symfony--ux-typed-strings-value="{{ strings|json_encode|e('html_attr') }}">
+                                          </span> :
+                                      </h2>
+                                      <twig:NewAnnees annee="{{annee}}" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            function handleColorTheme(e) {
+                document.documentElement.setAttribute("data-color-theme", e);
+            }
+        </script>
+
+    </div>
+
+    <div class="dark-transparent sidebartoggler"></div>
+
+    {% else %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 mx-auto pt-5">
+                <div class="card bt mt-5">
+                    <div class="card-body text-center pt-4">
+                        {% if app.user %}
+                            {% include "app/partials/user/_avatar.html.twig" with {user: app.user, width: 90} %}
+                        {% endif %}
+                        <h5 class="py-2">Accès refusé pour vous
+                            {% if app.user %}
+                                <strong>{{app.user}}</strong>
+                            {% endif %}
+                        </h5>
+
+                        <p class="pt-2">
+                            L’accès à l'espace membre est temporairement suspendu.
+                            <br>
+                            Pour toute information complémentaire !
+                        </p>
+
+                        <a href="mailto:{{appEmail}}" class="btn btn-primary mx-auto w-100 mb-4 d-flex align-items-center">
+                            <i class="ti ti-mail me-2"></i>
+                            Contacter l'administrateur
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+    <!-- Import Js Files -->
+    <script src="{{asset('themes/base/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('themes/base/assets/libs/simplebar/dist/simplebar.min.js')}}"></script>
+
+    {% if app.user.mode == 'dark' %}
+        <script src="{{ asset('themes/base/assets/js/theme/app.dark.init.js') }}"></script>
+    {% else %}
+        <script src="{{ asset('themes/base/assets/js/theme/app.init.js') }}"></script>
+    {% endif %}
+
+    <script src="{{asset('themes/base/assets/js/theme/theme.js')}}"></script>
+    <script src="{{asset('themes/base/assets/js/theme/app.min.js')}}"></script>
+    <script src="{{asset('themes/base/assets/js/theme/sidebarmenu-default.js')}}"></script>
+
+    <!-- solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <!-- highlight.js (code view) -->
+    <script src="{{asset('themes/base/assets/js/highlights/highlight.min.js')}}"></script>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+        document.querySelectorAll("pre.code-view > code").forEach((codeBlock) => {
+            codeBlock.textContent = codeBlock.innerHTML;
+        });
+    </script>
+
+    <script src="{{asset('themes/base/assets/libs/fullcalendar/index.global.min.js')}}"></script>
+    <script src="{{asset('themes/base/assets/js/apps/calendar-init.js')}}"></script>
+
+    <script src="{{asset('themes/base/assets/js/vendor.min.js')}}"></script>
+    <script src="{{asset('themes/base/assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+    <script src="{{asset('themes/base/assets/js/dashboards/dashboard3.js')}}"></script>
+    <script src="{{asset('themes/base/assets/js/apps/chat.js')}}"></script>
+
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+
+    {% include "partials/app/_sweet_alert.html.twig" %}
+
+    {% block scripts %}{% endblock %}
+
+</body>
+
 </html>

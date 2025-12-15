@@ -1,0 +1,5 @@
+{% if clear == true %}
+	<a href="{{path(path, {id: data.id})}}" class="btn bg-danger-subtle text-danger me-2 {{class is defined ? class : ""}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Annuler la recherche">
+		<span class="loadBtn"><i class="ti ti-filter-off"></i></span>
+	</a>
+{% endif %}

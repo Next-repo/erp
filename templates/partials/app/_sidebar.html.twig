@@ -1,0 +1,93 @@
+{% set roote = app.request.attributes.get('_route') %}
+{% set userRoles = app.user.roles|filter(role => role != 'ROLE_USER') %}
+
+{% set isAdmin = 'ROLE_ADMIN' in userRoles %}
+{% set isMembre = is_granted('ROLE_MEMBRE') %}
+{% set accessClients = is_granted('ROLE_USER') %}
+{% set accessProjets = is_granted('ROLE_USER') %}
+{% set accessMembres = is_granted('ROLE_USER') %}
+{% set accessAffectation = is_granted('ROLE_USER') %}
+
+<aside class="left-sidebar with-vertical border-end">
+	<div>
+		<div class="brand-logo d-flex align-items-center">
+			<a href="{{path('dashboard')}}" data-turbo="false" class="text-nowrap logo-img">
+				{% include "partials/app/_logo.html.twig" with {size: 100} %}
+			</a>
+		</div>
+		<nav class="sidebar-nav scroll-sidebar" data-simplebar>
+			<ul class="sidebar-menu" id="sidebarnav">
+
+				<li class="nav-small-cap">
+					<iconify-icon icon="solar:menu-dots-linear" class="mini-icon"></iconify-icon>
+					<span class="hide-menu text-primary">{{appName}}</span>
+				</li>
+
+				<li class="sidebar-item">
+					<a class="sidebar-link {{roote in ['dashboard'] ? 'active' : ''}}" href="{{path('dashboard')}}" aria-expanded="false">
+						<iconify-icon icon="solar:pie-chart-2-broken"></iconify-icon>
+						<span class="hide-menu">Tableau de bord</span>
+					</a>
+				</li>
+
+				{% if accessProjets %}
+					<li class="sidebar-item">
+						<a class="sidebar-link {{roote in ['projets'] ? 'active' : ''}}" href="{{path('projets')}}" aria-expanded="false">
+							<iconify-icon icon="solar:folder-2-broken"></iconify-icon>
+							<span class="hide-menu">Projets</span>
+						</a>
+					</li>
+				{% endif %}
+
+				{% if accessClients %}
+					<li class="sidebar-item">
+						<a class="sidebar-link {{roote in ['clients'] ? 'active' : ''}}" href="{{path('clients')}}" aria-expanded="false">
+							<iconify-icon icon="solar:users-group-rounded-linear"></iconify-icon>
+							<span class="hide-menu">Clients</span>
+						</a>
+					</li>
+				{% endif %}
+
+				{% if accessMembres %}
+					<li class="sidebar-item">
+						<a class="sidebar-link {{roote in ['users'] ? 'active' : ''}}" href="{{path('users')}}" aria-expanded="false">
+							<iconify-icon icon="solar:user-id-outline"></iconify-icon>
+							<span class="hide-menu">Membres</span>
+						</a>
+					</li>
+				{% endif %}
+
+				{% if accessAffectation %}
+					<li class="sidebar-item">
+						<a class="sidebar-link {{roote in ['affectations'] ? 'active' : ''}}" href="{{path('affectations')}}" aria-expanded="false">
+							<iconify-icon icon="solar:user-check-linear"></iconify-icon>
+							<span class="hide-menu">Affectations</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link {{roote in ['roles'] ? 'active' : ''}}" href="{{path('roles')}}" aria-expanded="false">
+							<iconify-icon icon="solar:user-check-linear"></iconify-icon>
+							<span class="hide-menu">Rôles</span>
+						</a>
+					</li>
+				{% endif %}
+
+				<li class="sidebar-item">
+					<a class="sidebar-link {{roote in ['compte'] ? 'active' : ''}}" href="{{path('compte')}}" aria-expanded="false">
+						<iconify-icon icon="solar:user-circle-broken"></iconify-icon>
+						<span class="hide-menu">Mon compte</span>
+					</a>
+				</li>
+				<li class="sidebar-item">
+					<a class="sidebar-link logout" href="{{path('app_logout')}}" target="_blank" aria-expanded="false">
+						<iconify-icon icon="solar:power-bold"></iconify-icon>
+						<span class="hide-menu">Déconnexion</span>
+					</a>
+				</li>
+				<li>
+					<span class="sidebar-divider lg"></span>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</aside>

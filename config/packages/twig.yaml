@@ -1,5 +1,12 @@
 twig:
     file_name_pattern: '*.twig'
+    form_themes: ['bootstrap_5_layout.html.twig']
+    globals:
+        appName: "Next Evolution ERP"
+        appEmail: "contact@next-evolution.it.com"
+        appLogo: "img/logo.png"
+        userAvatar: "img/avatar.jpg"
+        currency: " Fcfa"
 
 when@test:
     twig:

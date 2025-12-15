@@ -1,0 +1,32 @@
+{% for message in app.flashes('success') %}
+<script>
+	Swal.fire({
+		title: "Succès",
+		text: "{{ message|raw }}",
+		icon: "success",
+		confirmButtonText: "OK"
+	});
+</script>
+{% endfor %}
+
+{% for message in app.flashes('danger') %}
+<script>
+	Swal.fire({
+		title: "Attention !",
+		text: "{{ message|raw }}",
+		icon: "error",
+		confirmButtonText: "OK"
+	});
+</script>
+{% endfor %}
+
+{% for message in app.flashes('warning') %}
+<script>
+	Swal.fire({
+		title: "Attention !",
+		text: "{{ message|raw }}",
+		icon: "error",
+		confirmButtonText: "OK"
+	});
+</script>
+{% endfor %}

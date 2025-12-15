@@ -1,0 +1,51 @@
+{% extends 'auth.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block titre %}Crée votre compte{% endblock %}
+
+{% block body %}
+
+	{% include "security/composants/_reseaux.html.twig" %}
+
+	<div class="position-relative text-center my-4">
+		<p class="mb-0 fs-12 px-3 d-inline-block bg-body z-index-5 position-relative">Ou inscrivez-vous avec votre adresse e-mail</p>
+		<span class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
+	</div>
+
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+	{{ form_errors(registrationForm) }}
+
+	{{ form_start(registrationForm) }}
+
+	{{ form_row(registrationForm.name) }}
+	{{ form_row(registrationForm.email) }}
+	{{ form_row(registrationForm.plainPassword) }}
+
+	<div class="mb-3 mt-3">
+		<div class="register-check d-flex align-items-start">
+			{{ form_widget(registrationForm.agreeTerms) }}
+			<label for="registration_form_agreeTerms" class="ps-2">
+				En cochant cette case, j’accepte les
+				<a href="#" target="_blank" class="text-primary">Conditions d’utilisation</a>
+				et la
+				<a href="#" target="_blank" class="text-primary">Politique de confidentialité</a>
+				de la plateforme.
+			</label>
+		</div>
+		{{ form_errors(registrationForm.agreeTerms) }}
+	</div>
+
+	<button class="btn btn-primary" type="submit">
+		<span class="loadBtn d-block w-100">M'inscrire</span>
+	</button>
+
+	{{ form_end(registrationForm) }}
+
+	<div class="d-flex align-items-center justify-content-center mt-3">
+		<p class="fs-12 mb-0 fw-medium">J'ai déjà un compte !</p>
+		<a class="text-primary fw-bolder ms-2" href="{{path('app_login')}}">Connectez-vous maintenant</a>
+	</div>
+{% endblock %}

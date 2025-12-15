@@ -1,0 +1,16 @@
+<div class="modal fade" id="{{idElement is defined ? idElement : 'ModaleDetails'}}" tabindex="-1" role="dialog" aria-labelledby="{{idElement is defined ? idElement : 'ModaleDetails'}}Label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-{{size is defined ? size : 'lg'}}" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h6 class="modal-title m-0" id="{{idElement is defined ? idElement : 'ModaleDetails'}}Label">
+					{% include "partials/app/_logo.html.twig" with {size: 90} %}
+					{{text ? text : 'Ajouter un élément'}}
+				</h6>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="details-body"></div>
+			</div>
+		</div>
+	</div>
+</div>

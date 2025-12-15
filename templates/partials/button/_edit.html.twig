@@ -1,0 +1,6 @@
+{% if condition is defined ? condition : is_granted('ROLE_CAN_EDIT') %}
+	<a href="{{ path(path, {'id': data.id}) }}" class="btn {{btn is defined ? btn : 'btn-outline-dark btn-sm'}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{title is defined ? title : 'Mettre à jour'}}">
+		<i class="ti ti-{{icon is defined ? icon : 'eye'}} fs-5"></i>
+		{{text is defined ? text : 'Editer'}}
+	</a>
+{% endif %}

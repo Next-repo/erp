@@ -1,0 +1,21 @@
+{% if is_granted('ROLE_USER') %}
+	<div class="btn-group annee filter-btn">
+		<button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			<i class="ti ti-calendar"></i> Années d'activitées : {{annee()}}
+		</button>
+		<ul class="dropdown-menu">
+			{% for annee in annees() %}
+			<li class="py-0">
+				<a class="dropdown-item py-0 d-flex {{annee == annee() ? 'active text-success fw-bold' : ''}}" href="{{path('change_annee', {id: annee.id})}}">
+					{{annee}}
+					{% if annee == anneeEncours() %}
+					<span class="ms-auto flex-btn text-primary">
+						<i class="ti ti-check me-2"></i> Année en cours
+					</span>
+					{% endif %}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

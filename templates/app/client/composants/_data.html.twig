@@ -1,0 +1,48 @@
+<div class="table-responsive mb-0 p-0">
+	<table class="table text-nowrap mb-0 align-middle table-hover">
+		<thead class="text-dark">
+			<tr>
+				<th>Nom(s)</th>
+				<th>Type</th>
+				<th>Email</th>
+				<th>Téléphone</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for client in clients %}
+				<tr>
+					<td>
+						{{ client.nom }}
+					</td>
+					<td><span class="{{badge('success')}}">{{ client.type ? client.type.value : '' }}</span></td>
+					<td>{{ client.email }}</td>
+					<td>{{ client.telephone }}</td>
+					<td>
+						{% include "partials/button/_modale.html.twig" with {
+									className: "edit",
+									target: "editmodale",
+									icon: "user",
+									text: '',
+									data: client,
+									btn: "btn-sm btn-outline-primary",
+									path: 'client_edit',
+									condition: is_granted('ROLE_USER')}
+								%}
+
+						{% include "partials/button/_delete.html.twig" with {
+									path: 'client_delete', 
+									text: '',
+									data: client,
+									condition: is_granted('ROLE_USER')
+									} %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">Aucune données</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

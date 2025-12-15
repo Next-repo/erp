@@ -1,0 +1,52 @@
+{{ form_start(searchForm, {attr: {class: "app-form p-0"}}) }}
+
+<div class="grid-trois mb-0 collection-row text-start">
+	<div class="position-relative product-search">
+		{{ form_widget(searchForm.query) }}
+		<i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-2"></i>
+	</div>
+	<div class="search-bar app-form app-icon-form position-relative w-50">
+		{{ form_widget(searchForm.limit) }}
+		<i class="iconoir-list"></i>
+	</div>
+	<div class="text-end">
+		{% include "partials/button/_clear.html.twig" with {path: path(path), clear: clear} %}
+		<button class="btn btn-light d-flex justify-content-between align-items-center" type="submit">
+			<span class="loadBtnDeux">
+				<i class="ti ti-search"></i>
+				Rechercher
+			</span>
+		</button>&nbsp;
+		<button class="btn btn-light flex-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightSearch" aria-controls="offcanvasRight">
+			<iconify-icon icon="solar:filter-broken" class="me-1"></iconify-icon>
+		</button>&nbsp;
+		{#{% include "partials/button/_printer.html.twig" with {btn: 'btn-sm border'} %}#}
+	</div>
+</div>
+
+<div class="search offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSearch" aria-labelledby="offcanvasRightLabel">
+	<div class="offcanvas-header">
+		<h5 id="offcanvasRightLabel3">
+			<img src="{{asset(appLogo)}}" width="30" alt="{{appName}}">
+			{{titre is defined ? titre : "Filtrer les données"}}
+		</h5>
+		<button aria-label="Close" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" type="button"></button>
+	</div>
+	<div class="offcanvas-body text-start">
+		<div class="grid-deux">
+			{{ form_row(searchForm.from) }}
+			{{ form_row(searchForm.to) }}
+			{{ form_rest(searchForm) }}
+		</div>
+	</div>
+	<div class="offcanvas-bottom text-start p-3">
+		{% include "partials/button/_clear.html.twig" with {path: path(path), clear: clear} %}
+		<button class="btn btn-primary d-flex justify-content-between align-items-center" type="submit">
+			<span class="loadBtn">
+				<iconify-icon icon="solar:filter-broken" class="me-1"></iconify-icon>
+				Trier</span>
+		</button>
+	</div>
+</div>
+
+{{ form_end(searchForm) }}

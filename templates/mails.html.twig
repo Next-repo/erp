@@ -1,0 +1,15 @@
+<div style="background-color: #ebebeb; padding: 30px; font-size: 13px">
+  <div style="width: 98%; margin: auto">
+
+    {% include "mails/_header.html.twig" %}
+
+    <div style="margin: auto; background: #fff; padding: 20px;border-radius:10px;">
+
+      {% block body %}{% endblock %}
+
+    </div>
+
+    {% include "mails/_footer.html.twig" %}
+
+  </div>
+</div>

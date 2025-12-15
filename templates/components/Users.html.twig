@@ -1,0 +1,43 @@
+<div {{ attributes is defined ? attributes|raw:'' }}>
+  {{ form_start(form, { attr: {
+    'data-action': 'live#action:prevent',
+    'data-live-action-param': 'save',
+    class: 'app-form',
+    user: user
+  } }) }}
+
+  {{ form_widget(form._token) }}
+  {{ form_errors(form) }}
+
+  <div class="text-center">
+    <img src="{{ user.avatarUrl ?? asset(userAvatar) }}" alt="{{ user }}" width="100" class="rounded-circle" />
+    <strong class="d-block text-dark text-center mt-3">{{user}}</strong>
+    {% include 'app/user/composants/_roles.html.twig' %}
+    <span class="{{badge(user.lockAccess ? 'success' : 'warning')}}">{{user.lockAccess ? 'Actif' : 'Inactif'}}</span>
+  </div>
+
+  <div class="grid-deux">
+    {% if form.name is defined %}
+      {{ form_row(form.name) }}
+    {% endif %}
+
+    {% if form.email is defined %}
+      {{ form_row(form.email) }}
+    {% endif %}
+  </div>
+
+  <div class="pt-3">
+    {% if form.roles is defined %}
+      {{ form_row(form.roles) }}
+    {% endif %}
+    <legend class="col-form-label">Accès</legend>
+    {% if form.lockAccess is defined %}
+      {{ form_row(form.lockAccess) }}
+    {% endif %}
+  </div>
+
+  <div class="pt-2">
+    <button class="btn btn-primary" type="submit"><span class="loadBtn">Enregistrer</span></button>
+  </div>
+  {{ form_end(form, { render_rest: false }) }}
+</div>

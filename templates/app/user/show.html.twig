@@ -1,0 +1,52 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Id</th>
+      <td>{{ user.id }}</td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td>{{ user.name }}</td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+      <th>Roles</th>
+      <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+    </tr>
+    <tr>
+      <th>Password</th>
+      <td>{{ user.password }}</td>
+    </tr>
+    <tr>
+      <th>Mode</th>
+      <td>{{ user.mode }}</td>
+    </tr>
+    <tr>
+      <th>IsVerified</th>
+      <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+    </tr>
+    <tr>
+      <th>AvatarUrl</th>
+      <td>{{ user.avatarUrl }}</td>
+    </tr>
+    <tr>
+      <th>LockAccess</th>
+      <td>{{ user.lockAccess ? 'Yes' : 'No' }}</td>
+    </tr>
+    <tr>
+      <th>GoogleId</th>
+      <td>{{ user.googleId }}</td>
+    </tr>
+    <tr>
+      <th>Created</th>
+      <td>{{ user.created ? user.created|date('Y-m-d H:i:s') : '' }}</td>
+    </tr>
+    <tr>
+      <th>Updated</th>
+      <td>{{ user.updated ? user.updated|date('Y-m-d H:i:s') : '' }}</td>
+    </tr>
+  </tbody>
+</table>

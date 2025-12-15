@@ -1,0 +1,19 @@
+{% if condition is defined ? condition : is_granted('ROLE_CAN_SHOW') %}
+	{% if data is not empty %}
+
+	
+
+	{% endif %}
+	<button 
+		type="button"
+		class="btn {{btn ?? 'btn-outline-primary d-flex align-items-center btn-sm'}} {{className}}"
+		data-bs-toggle="modal"
+		data-bs-target="#{{target is defined ? target : 'addModal'}}"
+		data-url="{{ path(path, {'id': data.id}) }}" title="{{title is defined ? title : ''}}"
+		>
+	
+		<i class="ti ti-{{icon is defined ? icon : 'plus'}}"></i>
+		{{text is defined ? text : ''}}
+
+	</button>
+{% endif %}

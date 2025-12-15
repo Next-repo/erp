@@ -1,0 +1,33 @@
+<div {{ attributes is defined ? attributes|raw:'' }}>
+  {{ form_start(form, { attr: {
+    'data-action': 'live#action:prevent',
+    'data-live-action-param': 'save',
+    class: 'app-form',
+    client: client
+  } }) }}
+
+  {{ form_widget(form._token) }}
+  {{ form_errors(form) }}
+
+  <div class="grid-deux">
+    {% if form.nom is defined %}
+      {{ form_row(form.nom) }}
+    {% endif %}
+
+    {% if form.type is defined %}
+      {{ form_row(form.type) }}
+    {% endif %}
+
+    {% if form.email is defined %}
+      {{ form_row(form.email) }}
+    {% endif %}
+
+    {% if form.telephone is defined %}
+      {{ form_row(form.telephone) }}
+    {% endif %}
+  </div>
+  <div class="pt-2">
+    <button class="btn btn-primary" type="submit"><span class="loadBtn">Enregistrer</span></button>
+  </div>
+  {{ form_end(form, { render_rest: false }) }}
+</div>

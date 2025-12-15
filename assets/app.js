@@ -6,5 +6,9 @@ import './stimulus_bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
+import './styles/responsive.css';
+import './js/form-btn.js'
+import './js/loader.js'
+import './js/loader-deux.js'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

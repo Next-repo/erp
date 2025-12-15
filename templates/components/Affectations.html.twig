@@ -1,0 +1,29 @@
+<div {{ attributes is defined ? attributes|raw:'' }}>
+  {{ form_start(form, { attr: {
+    'data-action': 'live#action:prevent',
+    'data-live-action-param': 'save',
+    class: 'app-form',
+    affectation: affectation
+  } }) }}
+
+  {{ form_widget(form._token) }}
+  {{ form_errors(form) }}
+
+    {% if form.projet is defined %}
+      {{ form_row(form.projet) }}
+    {% endif %}
+
+  <div class="grid-deux">
+    {% if form.user is defined %}
+      {{ form_row(form.user) }}
+    {% endif %}
+
+    {% if form.roles is defined %}
+      {{ form_row(form.roles) }}
+    {% endif %}
+  </div>
+  <div class="pt-2">
+    <button class="btn btn-primary" type="submit"><span class="loadBtn">Enregistrer</span></button>
+  </div>
+  {{ form_end(form, { render_rest: false }) }}
+</div>
